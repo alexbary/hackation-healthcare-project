@@ -1,8 +1,41 @@
 <div class="container">
 	<h3>Search</h3>
 	<br>
-<!--     <button type="button" class="btn btn-primary" (click)="zoomIn()">Zoom In</button>
-    <button type="button" class="btn btn-primary" (click)="zoomOut()">Zoom Out</button> -->
+	<mat-tab-group>
+		<mat-tab label="Doctors">
+			<form class="example-form">
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="Search for doctors around your area..." value="">
+			  	</mat-form-field>
+			</form>
+		</mat-tab>
+	  	<mat-tab label="Practices">
+			<form class="example-form">
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="placeholder" value="">
+			  	</mat-form-field>
+			</form>
+	  	</mat-tab>
+	  	<mat-tab label="Insurance Providers and Plans">
+			<form class="example-form">
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="placeholder" value="">
+			  	</mat-form-field>
+			</form>
+	  	</mat-tab>
+	  	<mat-tab label="Other">
+			<form class="example-form">
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="placeholder" value="">
+			  	</mat-form-field>
+			</form>
+	  	</mat-tab>
+	  	
+	</mat-tab-group>
+	<!--     
+	<button type="button" class="btn btn-primary" (click)="zoomIn()">Zoom In</button>
+    <button type="button" class="btn btn-primary" (click)="zoomOut()">Zoom Out</button> 
+    -->
 </div>
 
 <div>
