@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { SearchComponent } from './search/search.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ReviewComponent } from './review/review.component';
 
 const appRoutes: Routes = [
   {path:'', component:HomeComponent},
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
     HomeComponent,
     FooterComponent,
     SearchComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,
