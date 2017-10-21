@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
+import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpModule } from '@angular/http';
 
 import { DataService } from "./data/data.service";
 
@@ -35,7 +37,10 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     MatTabsModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
