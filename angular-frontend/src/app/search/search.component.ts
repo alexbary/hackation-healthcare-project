@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'; 
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DataService } from "../data/data.service";
 // import { MatTabsModule } from '@angular/material';
 
 declare var google: any;
@@ -12,13 +13,15 @@ declare var google: any;
 })
 export class SearchComponent implements OnInit {
 
-	private map: any;
+	public map: any;
 	public google: any;
+    public data: any;
 
-  	constructor() { }
+  	constructor(public ds: DataService) { }
 
   	ngOnInit() {
   		this.initMap();
+        this.initialGet();
   	}
 
   	public initMap(): void {
@@ -73,6 +76,11 @@ export class SearchComponent implements OnInit {
         //     });
         //     marker.setMap(this.map);
         // })
+    }
+
+    initialGet() {
+        this.ds.getExample().subscribe(response => {this.data = response; /*alert(JSON.stringify(this.data)); */});
+        
     }
 
     zoomIn() {
