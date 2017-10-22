@@ -111,7 +111,7 @@ export class SearchComponent implements OnInit  {
         let lat = localStorage.getItem('latitude');
         let long = localStorage.getItem('longitude');
         var array_name_first = new Array();
-        var array_name_second = new Array();
+        // var array_name_second = new Array();
 
         return this.ds.getSearchResultDoctors(query, lat, long).subscribe(response => { 
             this.loading = false; 
@@ -124,26 +124,57 @@ export class SearchComponent implements OnInit  {
                         console.log(" loop 2 is working: " + b);
                         for (var c in response[a][b]) {
                             if (c == "profile") {
+                                let fname;
+                                let mname;
+                                let lname;
+                                let title;
                                 console.log("  loop 3 profiles is working: " + c);
-                                for (var d in response[a][b][c]) {
+                                for (var d in response[a][b][c]) {                                 
                                     console.log("   loop 4 is working: " + d);
-                                }                            
+                                    if (d == "middle_name") {
+                                        console.log("    loop 5 middle name: " + response[a][b][c][d]);
+                                        mname = response[a][b][c][d];
+                                    }
+                                    if (d == "last_name") {
+                                        console.log("    loop 5 last name: " + response[a][b][c][d]);
+                                        lname = response[a][b][c][d]; 
+                                    }
+                                    if (d == "title") {
+                                        console.log("    loop 5 title: " + response[a][b][c][d]);
+                                        title = response[a][b][c][d];
+                                    }
+                                    if (d == "first_name") {
+                                        console.log("    loop 5 first name: " + response[a][b][c][d]);
+                                        fname = response[a][b][c][d]; 
+                                    }
+                                    if (d == "bio") {
+                                        console.log("    loop 5 bio: " + response[a][b][c][d]); 
+                                    }
+                                }
+                                let fullname = fname + " " + mname + " " + lname + ", " + title;
+                                console.log("FULLNAME: " + fullname);                            
                             }
                             if (c == "specialties") {
                                 console.log("  loop 3 specialties is working: " + c);
                                 for (var d in response[a][b][c]) {
                                     console.log("   loop 4 is working: " + d);
+                                    for (var e in response[a][b][c][d]) {
+                                        if (e == "uid") {
+                                            console.log("    loop 5 UID is working: " + response[a][b][c][d][e]);
+                                        }
+                                    }
                                 }                            
                             }
-                            if (c == "practices") {
-                                console.log("  loop 3 practices is working: " + c);
-                                for (var d in response[a][b][c]) {
-                                    console.log("   loop 4 is working: " + d);
-                                    for (var e in response[a][b][c][d]) {
-                                        // console.log("   loop 5 is working: " + d);
-                                    }
-                                }   
-                            }
+                            // if (c == "practices") {
+                            //     console.log("  loop 3 practices is working: " + c);
+                            //     for (var d in response[a][b][c]) {
+                            //         console.log("   loop 4 is working: " + d);
+                            //         for (var e in response[a][b][c][d]) {
+                            //             // console.log("    loop 5 practices: " + response[a][b][c][d][e]);
+                            //             // console.log("    loop 5 is working: " + e);
+                            //         }
+                            //     }   
+                            // }
                             
                             // console.log("  profile: " + c[profile]);
                         }
