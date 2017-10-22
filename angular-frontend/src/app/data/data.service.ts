@@ -43,4 +43,36 @@ export class DataService {
       return this.http.get(url).map((response:Response) => response.json());
     }
 
+    findDoctor(fname: string,lname: string){
+      let url = 'http://127.0.0.1:8080/find/'+fname+'/'+lname+'/';
+      //alert(url);
+      return this.http.get(url).map((response:Response) => response.json());
+    }
+
+    saveReview(fname: string,lname: string,text: string,sentiment: number){
+      let url = 'http://localhost:8080/review/'+fname+'/'+lname+'/?text='+text+'&sentiment='+sentiment;
+      //alert(url);
+      return this.http.get(url).map((response:Response) => response.json());
+    }
+
+    calculateRating(doctor){
+      var sum = 0;
+      var len = doctor.reviews.length;
+      for(var i = 0;i < len; i++){
+        sum += doctor.reviews[i].sentimentRaw*6.665+5;
+      }
+      var avg = Number((sum/len).toFixed(1));
+      return this.bound(avg,0.0,10.0);
+    }
+
+    bound(num,min,max){
+      if(num<min){
+        return min;
+      }else if(num > max){
+        return max;
+      }else{
+        return num;
+      }
+    }
+
 }
