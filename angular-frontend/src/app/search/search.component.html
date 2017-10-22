@@ -1,4 +1,4 @@
-<mat-progress-bar mode="indeterminate" [hidden]="loading"></mat-progress-bar>
+<!-- <mat-progress-bar mode="indeterminate" [hidden]="loading"></mat-progress-bar> -->
 <div class="titleBar">
 	<div class="container">
 		<h3>Premier Doctor Search</h3>	
@@ -13,6 +13,10 @@
 				  	<mat-form-field class="example-full-width">
 				    	<input #box (keyup.enter)="searchDoctors(box.value)" matInput placeholder="Search for doctors around your area..." value="">
 				  	</mat-form-field>
+<!-- 				  	<mat-radio-group>
+					  <mat-radio-button value="1">Option 1</mat-radio-button>
+					  <mat-radio-button value="2">Option 2</mat-radio-button>
+					</mat-radio-group> -->
 				</form>
 			</mat-tab>
 		  	<mat-tab label="Practices">
@@ -57,7 +61,7 @@
       		<th>Biography </th>
     	</tr>
     	<ng-container *ngFor="let person of rdata">
-	    	<tr>
+	    	<tr (click)="goToReviews(person.name)">
 	    		<td>{{person.name}}</td>
 	    		<td style="color: darkgrey;">{{person.bio}}</td>
 	    	</tr>

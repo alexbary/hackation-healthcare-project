@@ -277,6 +277,10 @@ export class SearchComponent implements OnInit  {
         this.map.setZoom(this.map.getZoom() - 1);
     }
 
+    goToReviews(name: string) {
+        alert("Opening: " + name);
+    }
+
     getCurrentLocation() {
         if (window.navigator && window.navigator.geolocation) {
             window.navigator.geolocation.getCurrentPosition(
