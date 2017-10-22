@@ -16,11 +16,14 @@ export class SearchComponent implements OnInit {
 	public map: any;
 	public google: any;
     public data: any;
+    public geolocationPosition: any;
+    public loading;
 
   	constructor(public ds: DataService) { }
 
   	ngOnInit() {
-  		this.initMap();
+        this.getCurrentLocation();
+        this.initMap();
         this.initialGet();
   	}
 
@@ -33,10 +36,12 @@ export class SearchComponent implements OnInit {
             zoom: 10
         }
         // this.map = new google.maps.Map(mapCanvas, mapOptions);
-
+        let lat = localStorage.getItem('latitude');
+        let long = localStorage.getItem('longitude');
 		var mapOptions = {
 		    // center: new google.maps.LatLng(company.markers[0].lat,company.markers[0].lng),
-		    center: new google.maps.LatLng("42","-93.6"),
+		    // center: new google.maps.LatLng("42","-93.6"),
+            center: new google.maps.LatLng(lat, long),
 		    zoom: 10
 		}
 		 
@@ -47,6 +52,7 @@ export class SearchComponent implements OnInit {
         });
 
 	    // parse through doctors response
+        //
         // this.calService.getCalendar().then((response: any) => {
         //     let company: CalCompanies = null;
         //     let companies = response.json();
@@ -79,8 +85,19 @@ export class SearchComponent implements OnInit {
     }
 
     initialGet() {
-        this.ds.getExample().subscribe(response => {this.data = response; /*alert(JSON.stringify(this.data)); */});
-        
+        return this.ds.getExample().subscribe(response => {
+            this.loading = true; 
+            this.data = response; 
+            /* alert(JSON.stringify(this.data)); */
+            this.loading = false;
+        });
+    }
+
+    searchDoctors() {
+         return this.ds.getExample().subscribe(response => { 
+            this.data = response; 
+            alert("results from searching doctors: " + JSON.stringify(this.data)); 
+        });
     }
 
     zoomIn() {
@@ -90,4 +107,43 @@ export class SearchComponent implements OnInit {
     zoomOut() {
         this.map.setZoom(this.map.getZoom() - 1);
     }
+
+    getCurrentLocation() {
+        if (window.navigator && window.navigator.geolocation) {
+            window.navigator.geolocation.getCurrentPosition(
+                position => {
+                    console.log(position);
+                    this.geolocationPosition = position;
+                    let lat = position.coords.latitude.toString();
+                    let lon = position.coords.longitude.toString();
+                    localStorage.setItem("latitude", lat);
+                    localStorage.setItem("longitude", lon);
+                },
+                error => {
+                    switch (error.code) {
+                        case 1:
+                            console.log('Permission Denied');
+                            break;
+                        case 2:
+                            console.log('Position Unavailable');
+                            break;
+                        case 3:
+                            console.log('Timeout');
+                            break;
+                    }
+                }
+            );
+            // window.navigator.geolocation.getCurrentPosition(position => {this.geolocationPosition = position; console.log(this.geolocationPosition); alert(this.geolocationPosition.coords.latitude);});
+            // let position = window.navigator.geolocation.getCurrentPosition;
+            // alert(r.coords.latitude);
+            // this.geolocationPosition = position;
+            // alert(this.geolocationPosition.coords.latitude);
+            // (position => {this.geolocationPosition = position; console.log(this.geolocationPosition); alert(this.geolocationPosition.coords.latitude);});  
+        };
+        // return window.navigator.geolocation.getCurrentPosition(position => {this.geolocationPosition = position;});
+    }
+
+    // ngAfterViewInit() {
+    //     this.initialGet();
+    // }
 }
