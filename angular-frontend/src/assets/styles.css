@@ -1,0 +1,62 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.example-form {
+  min-width: 150px;
+  /*max-width: 500px;*/
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.dark-greyed{
+  color: darkgrey;
+}
+
+style="color: darkgrey"
+
+/*Table Design*/
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #e8f0ff;
+
+  border-style: solid;
+  border-top-style: none;
+  border-bottom-style: thick single grey;
+  border-right: thick single grey;
+  border-left: thick single grey;
+}
+
+th,tr {
+  height: 45px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:last-child {
+	border-bottom: none;
+}
+
+tr:hover {
+	background-color: #f5f5f5;
+}
+
+
+/*search bar design*/
+.searchBar {
+  background-color: #f5f5f5; 
+  /*box-shadow: inset 0px 4px 2px -2px #CCC;*/
+  box-shadow: inset 0px 11px 8px -10px #CCC;
+  /*z-index: 5;*/
+}
+
+/*title bar design*/
+.titleBar {
+  background-color: #e8f0ff;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  /*box-shadow: 0 4px 2px -20px gray;*/
+  /*z-index: 10;*/
+}
