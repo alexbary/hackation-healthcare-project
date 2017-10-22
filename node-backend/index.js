@@ -33,10 +33,9 @@ MongoClient.connect(connectString, (err, database) => {
 app.get('/finddoctor/:firstname/:lastname', function(req, res) 
 {
   
-  var doctor = findDoctor();
+  var doctor = findDoctor(req.params.firstname,req.params.lastname,res);
 
-
-  res.send('hello');
+  //res.send('hello');
 });
 
 // MongoClient.connect('mongodb://nodeRW:ratingDoctors@ds227565.mlab.com:27565/idwapefaprd', function (err, db) {
@@ -58,26 +57,25 @@ app.get('/finddoctor/:firstname/:lastname', function(req, res)
 	
 // })
 
-function findDoctor()
+function findDoctor(fname,lname,res)
 {
-	var returnObject;
-	console.log("1. "+typeof(db));
+	var doctor = db.collection("doctors").findOne({},function (err, result) {
+    if (err) throw err
+
+    //console.log(result);
+	res.send(result);
+
+  });
+}
+
+function createDoctor(fname,lname,res){
 	var doctor = db.collection("doctors").find().toArray(function (err, result) {
     if (err) throw err
 
-    returnObject = result;
-
     //console.log(result);
 	console.log(result[0].firstName + ' ' + result[0].lastName);
-	//console.log(result[0].reviews);
-	return result;
 
-	// var review0 = createReview("cures cancer on sight",0.56);
-	// var review1 = createReview("fake ass medicine man",-0.44);
-	// var mark = createDoctor("Mark", "Schwartz", [review0, review1]);
-	//db.collection('doctors').insert(mark);
   });
-	console.log(doctor[0].firstName);
 }
 
 
