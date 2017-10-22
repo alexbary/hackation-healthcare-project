@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
     public data: any;
     public geolocationPosition: any;
     public loading;
+    public rdata: any;
 
     model: any = {};
 
@@ -27,7 +28,7 @@ export class SearchComponent implements OnInit {
         this.getCurrentLocation();
         this.initMap();
         this.initialSearchDoctors();
-        this.watsonSentimentAnalysis("Hello, I think this application is awesome!");
+        // this.watsonSentimentAnalysis("Hello, I think this application is awesome!");
         // this.searchDoctors();
   	}
 
@@ -95,16 +96,23 @@ export class SearchComponent implements OnInit {
         return this.ds.getDoctorsNearby(lat, long).subscribe(response => {
             this.loading = true; 
             this.data = response; 
-            alert(JSON.stringify(this.data)); 
-            
+            // alert(JSON.stringify(this.data)); 
+
             this.loading = false;
         });
     }
 
-    searchDoctors(query: string, lat: string, long: string) {
+    searchDoctors(query: string) {
+        let lat = localStorage.getItem('latitude');
+        let long = localStorage.getItem('longitude');
         return this.ds.getSearchResultDoctors(query, lat, long).subscribe(response => { 
-            this.data = response; 
-            alert("results from searching doctors: " + JSON.stringify(this.data)); 
+            this.rdata = response; 
+            // alert("results from searching doctors: " + JSON.stringify(this.rdata));
+            console.log(this.rdata.data[1].profile);
+            alert(this.rdata.data[1].profile.first_name);
+            console.log(this.rdata.data[1].profile.first_name); 
+            console.log(this.rdata.data[1].profile.middle_name);
+            console.log(this.rdata.data[1].profile.last_name);  
         });
     }
 
