@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from "../data/data.service";
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+	public data;
+  	constructor(public ds: DataService) { }
 
-  ngOnInit() {
-  }
+  	ngOnInit() {
+  		this.testGetRequest("test", "39", "-93");
+  	}
 
+  	testGetRequest(query: string, lat: string, long: string) {
+  		// change getSearchResultPractices to your data service method
+  		return this.ds.getSearchResultPractices(query, lat, long).subscribe(response => { 
+            this.data = response; 
+            alert("results: " + JSON.stringify(this.data)); 
+        });
+  	}
 }

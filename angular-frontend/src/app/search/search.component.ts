@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit  {
 	public google: any;
     public data: any;
     public geolocationPosition: any;
-    public loading;
+    public loading = true;
     public rdata;
     public indexes:Array<string>=[];
 
@@ -99,11 +99,11 @@ export class SearchComponent implements OnInit  {
         let long = localStorage.getItem('longitude');
 
         return this.ds.getDoctorsNearby(lat, long).subscribe(response => {
-            this.loading = true; 
+            // this.loading = true; 
             this.data = response; 
             // alert(JSON.stringify(this.data)); 
 
-            this.loading = false;
+            // this.loading = false;
         });
     }
 
@@ -114,39 +114,42 @@ export class SearchComponent implements OnInit  {
         var array_name_second = new Array();
 
         return this.ds.getSearchResultDoctors(query, lat, long).subscribe(response => { 
-            this.loading = true; 
+            this.loading = false; 
 
             this.rdata = response;
             for (var a in response) {
-                console.log("loop 1 is working: " + a);
-                for (var b in response[a]) {
-                    console.log(" loop 2 is working: " + b);
-                    for (var c in response[a][b]) {
-                        if (c == "profile") {
-                            console.log("  loop 3 profiles is working: " + c);
-                            for (var d in response[a][b][c]) {
-                                console.log("   loop 4 is working: " + d);
-                            }                            
+                if (a == "data") {
+                    console.log("loop 1 is working: " + a);
+                    for (var b in response[a]) {
+                        console.log(" loop 2 is working: " + b);
+                        for (var c in response[a][b]) {
+                            if (c == "profile") {
+                                console.log("  loop 3 profiles is working: " + c);
+                                for (var d in response[a][b][c]) {
+                                    console.log("   loop 4 is working: " + d);
+                                }                            
+                            }
+                            if (c == "specialties") {
+                                console.log("  loop 3 specialties is working: " + c);
+                                for (var d in response[a][b][c]) {
+                                    console.log("   loop 4 is working: " + d);
+                                }                            
+                            }
+                            if (c == "practices") {
+                                console.log("  loop 3 practices is working: " + c);
+                                for (var d in response[a][b][c]) {
+                                    console.log("   loop 4 is working: " + d);
+                                    for (var e in response[a][b][c][d]) {
+                                        // console.log("   loop 5 is working: " + d);
+                                    }
+                                }   
+                            }
+                            
+                            // console.log("  profile: " + c[profile]);
                         }
-                        if (c == "specialties") {
-                            console.log("  loop 3 specialties is working: " + c);
-                            for (var d in response[a][b][c]) {
-                                console.log("   loop 4 is working: " + d);
-                            }                            
-                        }
-                        if (c == "practices") {
-                            console.log("  loop 3 practices is working: " + c);
-                            for (var d in response[a][b][c]) {
-                                console.log("   loop 4 is working: " + d);
-                                for (var e in response[a][b][c][d]) {
-                                    // console.log("   loop 5 is working: " + d);
-                                }
-                            }   
-                        }
-                        
-                        // console.log("  profile: " + c[profile]);
                     }
                 }
+
             }
 
             // alert("results from searching doctors: " + this.rdata);
@@ -154,7 +157,11 @@ export class SearchComponent implements OnInit  {
             // this.indexes = response;
             // this.indexes = JSON.parse(response);
             // alert(JSON.stringify(this.indexes));
-            alert("results from searching doctors: " + JSON.stringify(this.rdata));
+
+
+            // alert("results from searching doctors: " + JSON.stringify(this.rdata));
+            
+
             // console.log(this.rdata);
             // let at_i;
             // while (this.rdata.data[at_i]) {
@@ -180,7 +187,7 @@ export class SearchComponent implements OnInit  {
             // console.log(this.rdata.data[1].profile.middle_name);
             // console.log(this.rdata.data[1].profile.last_name); 
             // console.log(this.rdata.data[1].profile.bio); 
-            this.loading = false; 
+            this.loading = true; 
         });
     }
 
