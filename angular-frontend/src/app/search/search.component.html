@@ -59,11 +59,13 @@
     	<tr>
       		<th>Name </th>
       		<th>Biography </th>
+      		<th>Rating </th>
     	</tr>
     	<ng-container *ngFor="let person of rdata">
 	    	<tr (click)="goToReviews(person.name)">
 	    		<td>{{person.name}}</td>
 	    		<td style="color: darkgrey;">{{person.bio}}</td>
+	    		<td>{{person.rating}}</td>
 	    	</tr>
     	</ng-container>
 	</table>

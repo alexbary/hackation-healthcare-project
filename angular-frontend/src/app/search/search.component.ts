@@ -155,7 +155,7 @@ export class SearchComponent implements OnInit  {
                                 }
                                 let fullname = fname + " " + mname + " " + lname + ", " + title;
                                 console.log("FULLNAME: " + fullname);
-                                data_array.push({name: fullname, bio: bio, fname: fname, lname: lname});
+                                data_array.push({name: fullname, bio: bio, fname: fname, lname: lname, rating: 5});
                                 // data_array.push(Array('name': fullname, 'value': bio));                             
                             }
                             if (c == "specialties") {
@@ -188,7 +188,7 @@ export class SearchComponent implements OnInit  {
             }
             this.rdata = data_array;
             // alert(JSON.stringify(data_array));
-            console.log(data_array);
+            // console.log(data_array);
 
 
             for (var pair in data_array) {
