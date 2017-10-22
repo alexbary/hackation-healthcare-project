@@ -58,6 +58,9 @@ export class DataService {
     calculateRating(doctor){
       var sum = 0;
       var len = doctor.reviews.length;
+      if(len == 0){
+        return 5;
+      }
       for(var i = 0;i < len; i++){
         sum += doctor.reviews[i].sentimentRaw*6.665+5;
       }
