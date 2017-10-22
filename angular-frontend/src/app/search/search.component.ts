@@ -64,7 +64,7 @@ export class SearchComponent implements OnInit  {
 		this.map = new google.maps.Map(mapCanvas, mapOptions);
 
 	    this.map.addListener('click', (event) => {
-            alert('Latitudine: ' + event.latLng.lat() + '\nLongitudine: ' + event.latLng.lng());
+            //alert('Latitudine: ' + event.latLng.lat() + '\nLongitudine: ' + event.latLng.lng());
         });
 
 	    // parse through doctors response
@@ -114,7 +114,6 @@ export class SearchComponent implements OnInit  {
     }
 
     searchDoctors(query: string) {
-        this.map = new google.maps.Map(this.gMapCanvas, this.gMapOptions);
         let lat = localStorage.getItem('latitude');
         let long = localStorage.getItem('longitude');
         var data_array = new Array();
@@ -160,8 +159,14 @@ export class SearchComponent implements OnInit  {
                                         bio = response[a][b][c][d];
                                     }
                                 }
-                                let fullname = fname + " " + mname + " " + lname + ", " + title;
+                                let fullname = fname + " " + ((mname == undefined)?"":mname) + " " + lname + ", " + title;
                                 console.log("FULLNAME: " + fullname);
+                                
+                                this.ds.findDoctor(fname, lname).subscribe(response => {
+                                    localStorage.setItem("doctorDB",response);
+                                });
+                                var docB = localStorage.getItem("doctorDB");
+                                console.log("!!!!!!!!!!"+docB);
                                 data_array.push({name: fullname, bio: bio, fname: fname, lname: lname, rating: 5});
                                 // data_array.push(Array('name': fullname, 'value': bio));                             
                             }
@@ -200,20 +205,13 @@ export class SearchComponent implements OnInit  {
                                     var marker = new google.maps.Marker({
                                         position: new google.maps.LatLng(glat,glon),
                                         map: this.map,
-                                        title: 'test' //,
-                                        //animation: google.maps.Animation.BOUNCE
+                                        title: 'test',
+                                        animation: google.maps.Animation.BOUNCE
                                     });
-                                    google.maps.event.addListener(marker, 'click', (function(marker) {
-                                        var infowindow = new google.maps.InfoWindow();
-                                        return function() {
-                                            infowindow.setContent("test");
-                                            infowindow.open(this.map, marker);
-                                        }
-                                    })(marker));
                                     marker.setMap(this.map);
                                 }   
                                 
-                               
+                                // this.map = new google.maps.Map(this.gMapCanvas, this.gMapOptions);
                             }
                             
                             // console.log("  profile: " + c[profile]);
@@ -226,8 +224,10 @@ export class SearchComponent implements OnInit  {
             // alert(JSON.stringify(data_array));
             // console.log(data_array);
 
-            
+
             for (var pair in data_array) {
+
+                
                 let f;
                 let l;
                 for (var name in data_array[pair]) {
@@ -241,7 +241,11 @@ export class SearchComponent implements OnInit  {
                         // console.log("l: " + l);
                     }
                 }
-                this.ds.findDoctor(f, l).subscribe(response => console.log(response));
+                this.ds.findDoctor(f, l).subscribe(response => {
+
+                    console.log(response)
+
+                });
             }
 
             // for (var i = 0; i < data_array.length; i++) {
@@ -285,7 +289,6 @@ export class SearchComponent implements OnInit  {
             // console.log(this.rdata.data[1].profile.middle_name);
             // console.log(this.rdata.data[1].profile.last_name); 
             // console.log(this.rdata.data[1].profile.bio); 
-            // this.map = new google.maps.Map(this.gMapCanvas, this.gMapOptions);
             this.loading = true; 
         });
     }
