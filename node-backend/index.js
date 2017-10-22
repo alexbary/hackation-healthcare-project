@@ -5,6 +5,7 @@ var app     = express();
 var connectString = 'mongodb://nodeRW:ratingDoctors@ds227565.mlab.com:27565/idwapefaprd';
 const MongoClient = require('mongodb').MongoClient;
 
+
 //Note that in version 4 of express, express.bodyParser() was
 //deprecated in favor of a separate 'body-parser' module.
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -30,12 +31,18 @@ MongoClient.connect(connectString, (err, database) => {
 // })
 
 
-app.get('/finddoctor/:firstname/:lastname', function(req, res) 
-{
-  
-  var doctor = findDoctor(req.params.firstname,req.params.lastname,res);
+app.get('/find/:firstname/:lastname', function(req, res) 
+{  
+  findDoctor(req.params.firstname,req.params.lastname,res);
+});
 
-  //res.send('hello');
+app.get('/review/:firstname/:lastname', function(req, res) 
+{  
+	console.log(req.params.firstname);
+	console.log(req.params.lastname);
+	console.log(req.query.text);
+	console.log(req.query.sentiment);
+	insertComment(req.params.firstname,req.params.lastname,req.query.text,parseFloat(req.query.sentiment),res);
 });
 
 // MongoClient.connect('mongodb://nodeRW:ratingDoctors@ds227565.mlab.com:27565/idwapefaprd', function (err, db) {
@@ -56,6 +63,7 @@ app.get('/finddoctor/:firstname/:lastname', function(req, res)
 //   })
 	
 // })
+
 
 function findDoctor(fname,lname,res)
 {
@@ -97,11 +105,21 @@ function createDoctor(fname,lname){
 	//db.collection('doctors').insert(doctor);
 }
 
+function insertComment(fname,lname,text,sentiment,res){
+	var review = createReview(text,sentiment);
+	var myquery = {firstName:fname,lastName:lname};
+	var newvalues = {$push: {"reviews": review}};
+	console.log("1 document updated");
+  	db.collection("doctors").updateOne(myquery, newvalues, function(err, result) {
+	    if (err) throw err;
+	    console.log("1 document updated");
+	    res.send({text:"document updated"});
+	});
+}
 
 function createReview(text,sentimentRaw){
 	var rating = new Object();
 	rating.text = text;
 	rating.sentimentRaw = sentimentRaw;
-
 	return rating;
 }
