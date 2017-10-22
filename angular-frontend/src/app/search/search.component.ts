@@ -159,8 +159,8 @@ export class SearchComponent implements OnInit  {
                                         console.log("    loop 5 bio: " + response[a][b][c][d]); 
                                         bio = response[a][b][c][d];
                                     }
-                                }
-                                let fullname = fname + " " + mname + " " + lname + ", " + title;
+                                } 
+                                let fullname = fname + " " + ((mname == undefined)?"":mname) + " " + lname + ", " + title;
                                 console.log("FULLNAME: " + fullname);
                                 data_array.push({name: fullname, bio: bio, fname: fname, lname: lname, rating: 5});
                                 // data_array.push(Array('name': fullname, 'value': bio));                             
@@ -200,8 +200,8 @@ export class SearchComponent implements OnInit  {
                                     var marker = new google.maps.Marker({
                                         position: new google.maps.LatLng(glat,glon),
                                         map: this.map,
-                                        title: 'test' //,
-                                        //animation: google.maps.Animation.BOUNCE
+                                        title: 'test',
+                                        animation: google.maps.Animation.BOUNCE
                                     });
                                     google.maps.event.addListener(marker, 'click', (function(marker) {
                                         var infowindow = new google.maps.InfoWindow();
@@ -314,6 +314,7 @@ export class SearchComponent implements OnInit  {
 
     goToReviews(name: string) {
         alert("Opening: " + name);
+
     }
 
     getCurrentLocation() {
