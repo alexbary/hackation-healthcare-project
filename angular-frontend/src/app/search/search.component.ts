@@ -25,6 +25,9 @@ export class SearchComponent implements OnInit  {
     public rdata;
     public indexes:Array<string>=[];
 
+    public gMapOptions: any;
+    public gMapCanvas: any;
+
     model: any = {};
 
   	constructor(public ds: DataService) { }
@@ -54,7 +57,10 @@ export class SearchComponent implements OnInit  {
             center: new google.maps.LatLng(lat, long),
 		    zoom: 10
 		}
-		 
+		
+        this.gMapCanvas = mapCanvas;
+        this.gMapOptions = mapOptions;
+
 		this.map = new google.maps.Map(mapCanvas, mapOptions);
 
 	    this.map.addListener('click', (event) => {
@@ -169,16 +175,38 @@ export class SearchComponent implements OnInit  {
                                     }
                                 }                            
                             }
-                            // if (c == "practices") {
-                            //     console.log("  loop 3 practices is working: " + c);
-                            //     for (var d in response[a][b][c]) {
-                            //         console.log("   loop 4 is working: " + d);
-                            //         for (var e in response[a][b][c][d]) {
-                            //             // console.log("    loop 5 practices: " + response[a][b][c][d][e]);
-                            //             // console.log("    loop 5 is working: " + e);
-                            //         }
-                            //     }   
-                            // }
+                            if (c == "practices") {
+                                console.log("  loop 3 practices is working: " + c);
+                                for (var d in response[a][b][c]) {
+                                    let glat;
+                                    let glon;
+                                    console.log("   loop 4 is working: " + d);
+                                    for (var e in response[a][b][c][d]) {
+                                        // console.log("    loop 5 practices: " + response[a][b][c][d][e]);
+                                        
+                                        if (e == "lat") {
+                                            console.log("    loop 5 lat: " + response[a][b][c][d][e]);
+                                            glat = response[a][b][c][d][e];
+
+                                        }
+                                        if (e == "lon") {
+                                            console.log("    loop 5 lon: " + response[a][b][c][d][e]);
+                                            glon = response[a][b][c][d][e];
+                                        }
+                                        
+                                    }
+                                    console.log("MARKERS: " + glat + ", "+ glon);
+                                    var marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(glat,glon),
+                                        map: this.map,
+                                        title: 'test',
+                                        animation: google.maps.Animation.BOUNCE
+                                    });
+                                    marker.setMap(this.map);
+                                }   
+                                
+                                // this.map = new google.maps.Map(this.gMapCanvas, this.gMapOptions);
+                            }
                             
                             // console.log("  profile: " + c[profile]);
                         }

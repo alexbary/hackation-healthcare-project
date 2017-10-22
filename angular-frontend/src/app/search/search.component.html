@@ -63,9 +63,9 @@
     	</tr>
     	<ng-container *ngFor="let person of rdata">
 	    	<tr (click)="goToReviews(person.name)">
-	    		<td>{{person.name}}</td>
+	    		<td style="width: 220px;">{{person.name}}</td>
 	    		<td style="color: darkgrey;">{{person.bio}}</td>
-	    		<td>{{person.rating}}</td>
+	    		<td style="width: 60px;">{{person.rating}}</td>
 	    	</tr>
     	</ng-container>
 	</table>
