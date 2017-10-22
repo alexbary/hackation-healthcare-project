@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit  {
 	public google: any;
     public data: any;
     public geolocationPosition: any;
-    public loading = true;
+    public loading;
     public rdata;
     public indexes:Array<string>=[];
 
@@ -155,7 +155,7 @@ export class SearchComponent implements OnInit  {
                                 }
                                 let fullname = fname + " " + mname + " " + lname + ", " + title;
                                 console.log("FULLNAME: " + fullname);
-                                data_array.push({name: fullname, bio: bio});
+                                data_array.push({name: fullname, bio: bio, fname: fname, lname: lname});
                                 // data_array.push(Array('name': fullname, 'value': bio));                             
                             }
                             if (c == "specialties") {
@@ -189,6 +189,32 @@ export class SearchComponent implements OnInit  {
             this.rdata = data_array;
             alert(JSON.stringify(data_array));
             console.log(data_array);
+
+
+            for (var pair in data_array) {
+
+                
+                let f;
+                let l;
+                for (var name in data_array[pair]) {
+                    if (name == "fname") {
+                        // console.log("RUNTHROUGH: " + data_array[pair][name]);
+                        f = data_array[pair][name];
+                        // console.log("f: " + f);
+                    }
+                    if (name == "lname") {
+                        l = data_array[pair][name];
+                        // console.log("l: " + l);
+                    }
+                }
+                this.ds.findDoctor(f, l).subscribe(response => console.log(response));
+            }
+
+            // for (var i = 0; i < data_array.length; i++) {
+            //     for (var j = 0; j < data_array[i].length; j++) {
+            //         console.log("RUNTHROUGH: " + data_array[i][j]);       
+            //     }
+            // }
 
             // alert("results from searching doctors: " + this.rdata);
 
