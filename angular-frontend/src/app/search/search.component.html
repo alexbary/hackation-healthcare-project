@@ -51,23 +51,18 @@
 
 <div class="container">
 	<h3>Table</h3>
-<!-- 	<table>
+	<table>
     	<tr>
       		<th>Name </th>
-
+      		<th>Biography </th>
     	</tr>
-    	<ng-container *ngFor="let person of rdata.list">
+    	<ng-container *ngFor="let person of rdata">
 	    	<tr>
-	    		<td>{{person.data[1].profile.first_name}}</td>
-	    		<td>{{person.profile.first_name}}</td>
+	    		<td>{{person.name}}</td>
+	    		<td>{{person.bio}}</td>
 	    	</tr>
     	</ng-container>
-	</table> -->
-	<!-- <ul>
-	  	<li *ngFor="let index of indexs">
-	    	{{ index.data }}
-	  	</li>
-	</ul> -->
+	</table>
 </div>
 
 <app-footer></app-footer>

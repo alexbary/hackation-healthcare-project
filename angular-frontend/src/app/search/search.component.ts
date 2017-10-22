@@ -110,13 +110,13 @@ export class SearchComponent implements OnInit  {
     searchDoctors(query: string) {
         let lat = localStorage.getItem('latitude');
         let long = localStorage.getItem('longitude');
-        var array_name_first = new Array();
+        var data_array = new Array();
         // var array_name_second = new Array();
 
         return this.ds.getSearchResultDoctors(query, lat, long).subscribe(response => { 
             this.loading = false; 
 
-            this.rdata = response;
+            // this.rdata = response;
             for (var a in response) {
                 if (a == "data") {
                     console.log("loop 1 is working: " + a);
@@ -128,6 +128,7 @@ export class SearchComponent implements OnInit  {
                                 let mname;
                                 let lname;
                                 let title;
+                                let bio;
                                 console.log("  loop 3 profiles is working: " + c);
                                 for (var d in response[a][b][c]) {                                 
                                     console.log("   loop 4 is working: " + d);
@@ -149,10 +150,13 @@ export class SearchComponent implements OnInit  {
                                     }
                                     if (d == "bio") {
                                         console.log("    loop 5 bio: " + response[a][b][c][d]); 
+                                        bio = response[a][b][c][d];
                                     }
                                 }
                                 let fullname = fname + " " + mname + " " + lname + ", " + title;
-                                console.log("FULLNAME: " + fullname);                            
+                                console.log("FULLNAME: " + fullname);
+                                data_array.push({name: fullname, bio: bio});
+                                // data_array.push(Array('name': fullname, 'value': bio));                             
                             }
                             if (c == "specialties") {
                                 console.log("  loop 3 specialties is working: " + c);
@@ -182,6 +186,9 @@ export class SearchComponent implements OnInit  {
                 }
 
             }
+            this.rdata = data_array;
+            alert(JSON.stringify(data_array));
+            console.log(data_array);
 
             // alert("results from searching doctors: " + this.rdata);
 
