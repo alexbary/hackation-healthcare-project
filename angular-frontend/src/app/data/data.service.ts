@@ -38,10 +38,9 @@ export class DataService {
   	}
 
     sentimentAnalysis(text: string){
-      let body = '{"text": "'+ text +'","features":{"sentiment":{}}}';
-      let url = 'https://watson-api-explorer.mybluemix.net/natural-language-understanding/api/v1/analyze?version=2017-02-27';
-      console.log(body);
-      return this.http.post(url,body, "{headers:{'Content-Type': 'application/json'}}").map((response:Response) => response.json());
+      let url = "https://watson-api-explorer.mybluemix.net/natural-language-understanding/api/v1/analyze"
+      +"?version=2017-02-27&features=sentiment&text=" + text;
+      return this.http.get(url).map((response:Response) => response.json());
     }
 
 }
