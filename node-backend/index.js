@@ -59,33 +59,39 @@ app.get('/finddoctor/:firstname/:lastname', function(req, res)
 
 function findDoctor(fname,lname,res)
 {
-	var doctor = db.collection("doctors").findOne({},function (err, result) {
+	db.collection("doctors").findOne({firstName:fname,lastName:lname},function (err, result) {
     if (err) throw err
 
-    //console.log(result);
-	res.send(result);
+    console.log(result);
 
+	if(result != null && result != undefined){
+		res.send(result);
+	}else{
+		console.log("adding new doctor");
+		insertDoctor(fname,lname,res);
+	}
   });
 }
 
-function createDoctor(fname,lname,res){
-	var doctor = db.collection("doctors").find().toArray(function (err, result) {
-    if (err) throw err
+function insertDoctor(fname,lname,res){
+	var doctor = createDoctor(fname,lname);
 
-    //console.log(result);
-	console.log(result[0].firstName + ' ' + result[0].lastName);
-
-  });
+	console.log("adding new doctor");
+	db.collection("doctors").insertOne(doctor, function(err, result) {
+	    if (err) throw err;
+	    console.log("new doctor added");
+	    res.send(doctor);
+	});
 }
 
 
 
-function createDoctor(fname,lname,reviews){
+function createDoctor(fname,lname){
 
 	var doctor = new Object();
 	doctor.firstName = fname;
-	doctor.lastName = lname; //todo
-	doctor.reviews = reviews;
+	doctor.lastName = lname;
+	doctor.reviews = [];
 	return doctor;
 
 	//db.collection('doctors').insert(doctor);
