@@ -187,7 +187,7 @@ export class SearchComponent implements OnInit  {
 
             }
             this.rdata = data_array;
-            alert(JSON.stringify(data_array));
+            // alert(JSON.stringify(data_array));
             console.log(data_array);
 
 
