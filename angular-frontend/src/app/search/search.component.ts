@@ -27,6 +27,7 @@ export class SearchComponent implements OnInit {
         this.getCurrentLocation();
         this.initMap();
         this.initialSearchDoctors();
+        this.watsonSentimentAnalysis("Hello, I think this application is awesome!");
         // this.searchDoctors();
   	}
 
@@ -108,6 +109,13 @@ export class SearchComponent implements OnInit {
 
     searchPractices(query: string, lat: string, long: string) {
         return this.ds.getSearchResultPractices(query, lat, long).subscribe(response => { 
+            this.data = response; 
+            alert("results from searching practices: " + JSON.stringify(this.data)); 
+        });
+    }
+
+    watsonSentimentAnalysis(text: string) {
+        return this.ds.sentimentAnalysis(text).subscribe(response => { 
             this.data = response; 
             alert("results from searching practices: " + JSON.stringify(this.data)); 
         });
