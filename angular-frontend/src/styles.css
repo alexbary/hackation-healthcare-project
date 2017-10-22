@@ -11,10 +11,23 @@
   width: 100%;
 }
 
+.dark-greyed{
+  color: darkgrey;
+}
+
+style="color: darkgrey"
+
 /*Table Design*/
 table {
   border-collapse: collapse;
   width: 100%;
+  background-color: #e8f0ff;
+
+  border-style: solid;
+  border-top-style: none;
+  border-bottom-style: thick single grey;
+  border-right: thick single grey;
+  border-left: thick single grey;
 }
 
 th,tr {
