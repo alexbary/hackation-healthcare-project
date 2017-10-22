@@ -33,5 +33,10 @@ export class DataService {
   		return this.http.get(`https://conduit.productionready.io/api/profiles/eric`).map((response:Response) => response.json());
   	}
 
+    sentimentAnalysis(text: string){
+      let body = '{"text": "'+ text +'","features":{"sentiment":{}}}';
+      let url = 'https://watson-api-explorer.mybluemix.net/natural-language-understanding/api/v1/analyze?version=2017-02-27';
+      return this.http.post(url,body).map((response:Response) => response.json());
+    }
 
 }
