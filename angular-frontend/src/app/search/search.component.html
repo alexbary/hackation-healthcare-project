@@ -1,41 +1,48 @@
-<div class="container">
-	<h3>Search</h3>
-	<br>
-	<mat-tab-group>
-		<mat-tab label="Doctors">
-			<form class="example-form">
-			  	<mat-form-field class="example-full-width">
-			    	<input #box (keyup.enter)="searchDoctors(box.value)" matInput placeholder="Search for doctors around your area..." value="">
-			  	</mat-form-field>
-			</form>
-		</mat-tab>
-	  	<mat-tab label="Practices">
-			<form class="example-form">
-			  	<mat-form-field class="example-full-width">
-			    	<input matInput placeholder="placeholder" value="">
-			  	</mat-form-field>
-			</form>
-	  	</mat-tab>
-	  	<mat-tab label="Insurance Providers and Plans">
-			<form class="example-form">
-			  	<mat-form-field class="example-full-width">
-			    	<input matInput placeholder="placeholder" value="">
-			  	</mat-form-field>
-			</form>
-	  	</mat-tab>
-	  	<mat-tab label="Other">
-			<form class="example-form">
-			  	<mat-form-field class="example-full-width">
-			    	<input matInput placeholder="placeholder" value="">
-			  	</mat-form-field>
-			</form>
-	  	</mat-tab>
-	  	
-	</mat-tab-group>
-	<!--     
-	<button type="button" class="btn btn-primary" (click)="zoomIn()">Zoom In</button>
-    <button type="button" class="btn btn-primary" (click)="zoomOut()">Zoom Out</button> 
-    -->
+<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+<div class="titleBar">
+	<div class="container">
+		<h3>Premier Doctor Search</h3>	
+	</div>
+</div>
+
+<div class="searchBar">
+	<div class="container">
+		<mat-tab-group>
+			<mat-tab label="Doctors">
+				<form class="example-form">
+				  	<mat-form-field class="example-full-width">
+				    	<input #box (keyup.enter)="searchDoctors(box.value)" matInput placeholder="Search for doctors around your area..." value="">
+				  	</mat-form-field>
+				</form>
+			</mat-tab>
+		  	<mat-tab label="Practices">
+				<form class="example-form">
+				  	<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Search for medical offices around you..." value="">
+				  	</mat-form-field>
+				</form>
+		  	</mat-tab>
+		  	<mat-tab label="Insurance Providers and Plans">
+				<form class="example-form">
+				  	<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Search for insurance provides..." value="">
+				  	</mat-form-field>
+				</form>
+		  	</mat-tab>
+		  	<mat-tab label="Other">
+				<form class="example-form">
+				  	<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="extras..." value="">
+				  	</mat-form-field>
+				</form>
+		  	</mat-tab>
+		  	
+		</mat-tab-group>
+		<!--     
+		<button type="button" class="btn btn-primary" (click)="zoomIn()">Zoom In</button>
+	    <button type="button" class="btn btn-primary" (click)="zoomOut()">Zoom Out</button> 
+	    -->
+	</div>
 </div>
 
 <div>
@@ -44,24 +51,23 @@
 
 <div class="container">
 	<h3>Table</h3>
-	<table>
+<!-- 	<table>
     	<tr>
       		<th>Name </th>
-      		<!-- <th>Player 1 </th> -->
-      		<!-- <th>Player 2 </th> -->
-      		<!-- <th>Whos Turn Is It </th> -->
-      		<!-- <th>Who Won </th> -->
+
     	</tr>
-    	<ng-container *ngFor="let person of rdata">
+    	<ng-container *ngFor="let person of rdata.list">
 	    	<tr>
-	    		<td>{{person.data}}</td>
-	    		<!-- <td>{{game.player1}}</td> -->
-	    		<!-- <td>{{game.player2}}</td> -->
-	    		<!-- <td>{{game.whosTurnIsIt}}</td> -->
-	    		<!-- <td>{{game.whoWon}}</td> -->
+	    		<td>{{person.data[1].profile.first_name}}</td>
+	    		<td>{{person.profile.first_name}}</td>
 	    	</tr>
     	</ng-container>
-	</table>
+	</table> -->
+	<!-- <ul>
+	  	<li *ngFor="let index of indexs">
+	    	{{ index.data }}
+	  	</li>
+	</ul> -->
 </div>
 
 <app-footer></app-footer>

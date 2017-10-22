@@ -2,23 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from "../data/data.service";
+import { PipeTransform, Pipe } from '@angular/core';
+// import {Index} from './index';
+// import {KeysPipe} from './pipe.ts'
 // import { MatTabsModule } from '@angular/material';
 
 declare var google: any;
+
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit  {
 
 	public map: any;
 	public google: any;
     public data: any;
     public geolocationPosition: any;
     public loading;
-    public rdata: any;
+    public rdata;
+    public indexes:Array<string>=[];
 
     model: any = {};
 
@@ -105,14 +110,77 @@ export class SearchComponent implements OnInit {
     searchDoctors(query: string) {
         let lat = localStorage.getItem('latitude');
         let long = localStorage.getItem('longitude');
+        var array_name_first = new Array();
+        var array_name_second = new Array();
+
         return this.ds.getSearchResultDoctors(query, lat, long).subscribe(response => { 
-            this.rdata = response; 
-            // alert("results from searching doctors: " + JSON.stringify(this.rdata));
-            console.log(this.rdata.data[1].profile);
-            alert(this.rdata.data[1].profile.first_name);
-            console.log(this.rdata.data[1].profile.first_name); 
-            console.log(this.rdata.data[1].profile.middle_name);
-            console.log(this.rdata.data[1].profile.last_name);  
+            this.loading = true; 
+
+            this.rdata = response;
+            for (var a in response) {
+                console.log("loop 1 is working: " + a);
+                for (var b in response[a]) {
+                    console.log(" loop 2 is working: " + b);
+                    for (var c in response[a][b]) {
+                        if (c == "profile") {
+                            console.log("  loop 3 profiles is working: " + c);
+                            for (var d in response[a][b][c]) {
+                                console.log("   loop 4 is working: " + d);
+                            }                            
+                        }
+                        if (c == "specialties") {
+                            console.log("  loop 3 specialties is working: " + c);
+                            for (var d in response[a][b][c]) {
+                                console.log("   loop 4 is working: " + d);
+                            }                            
+                        }
+                        if (c == "practices") {
+                            console.log("  loop 3 practices is working: " + c);
+                            for (var d in response[a][b][c]) {
+                                console.log("   loop 4 is working: " + d);
+                                for (var e in response[a][b][c][d]) {
+                                    // console.log("   loop 5 is working: " + d);
+                                }
+                            }   
+                        }
+                        
+                        // console.log("  profile: " + c[profile]);
+                    }
+                }
+            }
+
+            // alert("results from searching doctors: " + this.rdata);
+
+            // this.indexes = response;
+            // this.indexes = JSON.parse(response);
+            // alert(JSON.stringify(this.indexes));
+            alert("results from searching doctors: " + JSON.stringify(this.rdata));
+            // console.log(this.rdata);
+            // let at_i;
+            // while (this.rdata.data[at_i]) {
+            //     console.log(this.rdata.data[at_i].profile.first_name); 
+            //     console.log(this.rdata.data[at_i].profile.middle_name);
+            //     console.log(this.rdata.data[at_i].profile.last_name); 
+            //     console.log(this.rdata.data[at_i].profile.bio);
+            //     at_i++;
+            // }
+
+            // var idss = [];
+            // for(let result of response){
+            //     console.log("printing something");
+            //     console.log(result);
+            //    // idss.push(result.data[1].profile.first_name);
+            // }
+            // alert("idss: " + idss[0]);
+            // alert("length: " + this.rdata.data);
+            // alert(this.rdata.data[1].profile.first_name);
+
+            // console.log(this.rdata.data[1].profile);
+            // console.log(this.rdata.data[1].profile.first_name); 
+            // console.log(this.rdata.data[1].profile.middle_name);
+            // console.log(this.rdata.data[1].profile.last_name); 
+            // console.log(this.rdata.data[1].profile.bio); 
+            this.loading = false; 
         });
     }
 
@@ -173,7 +241,27 @@ export class SearchComponent implements OnInit {
         // return window.navigator.geolocation.getCurrentPosition(position => {this.geolocationPosition = position;});
     }
 
+    // transform(value, args:string[]) : any {
+    //     let rdata = [];
+    //     for (let key in value) {
+    //         // rdata.push({key: key, value: value[key]});
+    //         rdata.push(key);
+    //     }
+    //     return rdata;
+    // }
+
     // ngAfterViewInit() {
     //     this.initialGet();
     // }
 }
+
+// @Pipe({name: 'keys'})
+// export class KeysPipe implements PipeTransform {
+//     transform(value, args:string[]) : any {
+//         let keys = [];
+//         for (let key in value) {
+//             keys.push({key: key, value: value[key]});
+//         }
+//         return keys;
+//     }
+// }

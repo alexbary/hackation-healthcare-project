@@ -6,6 +6,7 @@ import { MatTabsModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from '@angular/http';
+import { MatProgressBarModule } from '@angular/material';
 
 import { DataService } from "./data/data.service";
 
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    MatProgressBarModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

@@ -29,3 +29,21 @@ tr:last-child {
 tr:hover {
 	background-color: #f5f5f5;
 }
+
+
+/*search bar design*/
+.searchBar {
+  background-color: #f5f5f5; 
+  /*box-shadow: inset 0px 4px 2px -2px #CCC;*/
+  box-shadow: inset 0px 11px 8px -10px #CCC;
+  /*z-index: 5;*/
+}
+
+/*title bar design*/
+.titleBar {
+  background-color: #e8f0ff;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  /*box-shadow: 0 4px 2px -20px gray;*/
+  /*z-index: 10;*/
+}
