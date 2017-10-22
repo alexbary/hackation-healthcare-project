@@ -241,7 +241,7 @@ export class SearchComponent implements OnInit  {
                         // console.log("l: " + l);
                     }
                 }
-                this.ds.findDoctor(f, l).subscribe(response => console.log(response));
+                // this.ds.findDoctor(f, l).subscribe(response => console.log(response));
             }
 
             // for (var i = 0; i < data_array.length; i++) {
