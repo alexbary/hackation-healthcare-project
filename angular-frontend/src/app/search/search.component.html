@@ -5,7 +5,7 @@
 		<mat-tab label="Doctors">
 			<form class="example-form">
 			  	<mat-form-field class="example-full-width">
-			    	<input matInput placeholder="Search for doctors around your area..." value="">
+			    	<input #box (keyup.enter)="onEnter(box.value)" matInput placeholder="Search for doctors around your area..." value="">
 			  	</mat-form-field>
 			</form>
 		</mat-tab>
