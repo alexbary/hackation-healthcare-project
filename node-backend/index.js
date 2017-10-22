@@ -5,6 +5,7 @@ var app     = express();
 var connectString = 'mongodb://nodeRW:ratingDoctors@ds227565.mlab.com:27565/idwapefaprd';
 const MongoClient = require('mongodb').MongoClient;
 
+
 //Note that in version 4 of express, express.bodyParser() was
 //deprecated in favor of a separate 'body-parser' module.
 app.use(bodyParser.urlencoded({ extended: true })); 
@@ -41,7 +42,7 @@ app.get('/review/:firstname/:lastname', function(req, res)
 	console.log(req.params.lastname);
 	console.log(req.query.text);
 	console.log(req.query.sentiment);
-	insertComment(req.params.firstname,req.params.lastname,req.query.text,req.query.sentiment,res);
+	insertComment(req.params.firstname,req.params.lastname,req.query.text,parseFloat(req.query.sentiment),res);
 });
 
 // MongoClient.connect('mongodb://nodeRW:ratingDoctors@ds227565.mlab.com:27565/idwapefaprd', function (err, db) {
