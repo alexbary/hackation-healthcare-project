@@ -96,6 +96,7 @@ export class SearchComponent implements OnInit {
             this.loading = true; 
             this.data = response; 
             alert(JSON.stringify(this.data)); 
+            
             this.loading = false;
         });
     }
