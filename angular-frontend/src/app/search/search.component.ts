@@ -19,12 +19,15 @@ export class SearchComponent implements OnInit {
     public geolocationPosition: any;
     public loading;
 
+    model: any = {};
+
   	constructor(public ds: DataService) { }
 
   	ngOnInit() {
         this.getCurrentLocation();
         this.initMap();
-        this.initialGet();
+        this.initialSearchDoctors();
+        // this.searchDoctors();
   	}
 
   	public initMap(): void {
@@ -84,19 +87,29 @@ export class SearchComponent implements OnInit {
         // })
     }
 
-    initialGet() {
-        return this.ds.getExample().subscribe(response => {
+    initialSearchDoctors() {
+        let lat = localStorage.getItem('latitude');
+        let long = localStorage.getItem('longitude');
+
+        return this.ds.getDoctorsNearby(lat, long).subscribe(response => {
             this.loading = true; 
             this.data = response; 
-            /* alert(JSON.stringify(this.data)); */
+            alert(JSON.stringify(this.data)); 
             this.loading = false;
         });
     }
 
-    searchDoctors() {
-         return this.ds.getExample().subscribe(response => { 
+    searchDoctors(query: string, lat: string, long: string) {
+        return this.ds.getSearchResultDoctors(query, lat, long).subscribe(response => { 
             this.data = response; 
             alert("results from searching doctors: " + JSON.stringify(this.data)); 
+        });
+    }
+
+    searchPractices(query: string, lat: string, long: string) {
+        return this.ds.getSearchResultPractices(query, lat, long).subscribe(response => { 
+            this.data = response; 
+            alert("results from searching practices: " + JSON.stringify(this.data)); 
         });
     }
 
