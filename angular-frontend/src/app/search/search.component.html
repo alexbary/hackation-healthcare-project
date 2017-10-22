@@ -54,17 +54,17 @@
 </div>
 
 <div class="container">
-	<h3>Table</h3>
-	<table>
+	<!-- <h3>Table</h3> -->
+	<table style="width: 100%;">
     	<tr>
-      		<th>Name </th>
+      		<th style="width: 220px;">Name </th>
       		<th>Biography </th>
-      		<th>Rating </th>
+      		<th style="width: 60px;">Rating </th>
     	</tr>
     	<ng-container *ngFor="let person of rdata">
 	    	<tr (click)="goToReviews(person.name)">
 	    		<td style="width: 220px;">{{person.name}}</td>
-	    		<td style="color: darkgrey;">{{person.bio}}</td>
+	    		<td style="color: darkgrey; ">{{person.bio}}</td>
 	    		<td style="width: 60px;">{{person.rating}}</td>
 	    	</tr>
     	</ng-container>

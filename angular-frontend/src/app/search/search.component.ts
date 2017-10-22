@@ -114,6 +114,7 @@ export class SearchComponent implements OnInit  {
     }
 
     searchDoctors(query: string) {
+        this.map = new google.maps.Map(this.gMapCanvas, this.gMapOptions);
         let lat = localStorage.getItem('latitude');
         let long = localStorage.getItem('longitude');
         var data_array = new Array();
@@ -199,13 +200,20 @@ export class SearchComponent implements OnInit  {
                                     var marker = new google.maps.Marker({
                                         position: new google.maps.LatLng(glat,glon),
                                         map: this.map,
-                                        title: 'test',
-                                        animation: google.maps.Animation.BOUNCE
+                                        title: 'test' //,
+                                        //animation: google.maps.Animation.BOUNCE
                                     });
+                                    google.maps.event.addListener(marker, 'click', (function(marker) {
+                                        var infowindow = new google.maps.InfoWindow();
+                                        return function() {
+                                            infowindow.setContent("test");
+                                            infowindow.open(this.map, marker);
+                                        }
+                                    })(marker));
                                     marker.setMap(this.map);
                                 }   
                                 
-                                // this.map = new google.maps.Map(this.gMapCanvas, this.gMapOptions);
+                               
                             }
                             
                             // console.log("  profile: " + c[profile]);
@@ -218,10 +226,8 @@ export class SearchComponent implements OnInit  {
             // alert(JSON.stringify(data_array));
             // console.log(data_array);
 
-
+            
             for (var pair in data_array) {
-
-                
                 let f;
                 let l;
                 for (var name in data_array[pair]) {
@@ -279,6 +285,7 @@ export class SearchComponent implements OnInit  {
             // console.log(this.rdata.data[1].profile.middle_name);
             // console.log(this.rdata.data[1].profile.last_name); 
             // console.log(this.rdata.data[1].profile.bio); 
+            // this.map = new google.maps.Map(this.gMapCanvas, this.gMapOptions);
             this.loading = true; 
         });
     }
