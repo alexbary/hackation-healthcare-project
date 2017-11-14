@@ -19,7 +19,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ReviewComponent } from './review/review.component';
 
 const appRoutes: Routes = [
-  // {path:'', component:HomeComponent},
   {path:'', component:SearchComponent},
   {path:'review', component:ReviewComponent},
   {path: '404', component: NotFoundComponent},
